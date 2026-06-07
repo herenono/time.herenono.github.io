@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>date</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #333;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+  }
+  #countdown { font-size: 2rem; text-align: center; line-height: 1.8; }
+  #target { color: #87ceeb; }
+</style>
+</head>
+<body>
+<div id="countdown">
+  距离 <span id="target">2027.08.15</span>
+  <div id="diff"></div>
+</div>
+<script>
+const target = new Date('2027-08-15T00:00:00');
+
+function update() {
+  const now = new Date();
+  const ms = target - now;
+
+  if (ms <= 0) {
+    document.getElementById('diff').textContent = '已经到达';
+    return;
+  }
+
+  const days = Math.floor(ms / 86400000);
+  const hours = Math.floor((ms % 86400000) / 3600000);
+  const minutes = Math.floor((ms % 3600000) / 60000);
+  const seconds = Math.floor((ms % 60000) / 1000);
+
+  document.getElementById('diff').textContent =
+    `${days} 天 ${hours} 时 ${minutes} 分 ${seconds} 秒`;
+}
+
+update();
+setInterval(update, 1000);
+</script>
+</body>
+</html>
